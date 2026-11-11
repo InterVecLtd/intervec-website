@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>InterVec Ltd — Φωτοβολταϊκά, ενέργεια, κτίρια</title>
+<title>InterVec Ltd — Ενεργειακή τεχνολογία</title>
 <meta name="description" content="InterVec Ltd, Λεμεσός, από το 2000. Φωτοβολταϊκά και αποθήκευση σε μπαταρίες, βιοκλιματικός σχεδιασμός, θέρμανση και κλιματισμός. Φωτοβολταϊκά, ποιότητα ισχύος, αποθήκευση με υπερπυκνωτές, αποστρωμάτωση και καθαρισμός αέρα, αερισμός, φυσικός φωτισμός, ανακαινίσεις, θερμομόνωση, στεγανοποίηση, μηχανολογία, σχεδιασμός προϊόντων και αυτοματισμοί.">
-<meta property="og:title" content="InterVec Ltd — Φωτοβολταϊκά, ενέργεια, κτίρια και μηχανολογία">
+<meta property="og:title" content="InterVec Ltd — Ενεργειακή τεχνολογία">
 <meta property="og:description" content="InterVec Ltd, Λεμεσός, από το 2000. Φωτοβολταϊκά και αποθήκευση, ποιότητα ισχύος, αέρας και αερισμός, κτίρια, μηχανολογία.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.intervec.com.cy/">
@@ -337,7 +337,7 @@ const GROUPS = [
 ];
 
 const T = {
- h1:{el:"Φωτοβολταϊκά, ενέργεια, κτίρια και μηχανολογία", en:"Solar PV, energy, buildings and engineering"},
+ h1:{el:"Ενεργειακή τεχνολογία", en:"Engineering Energy"},
  intro:{el:"Η InterVec Ltd είναι εταιρεία με έδρα τη Λεμεσό, που δραστηριοποιείται στον τομέα της ενέργειας από το 2000. Σε αυτή τη σελίδα θα βρείτε πληροφορίες για τα προϊόντα και τις υπηρεσίες μας σε φωτοβολταϊκά, ενέργεια, αέρα, κτίρια και μηχανολογία.",
         en:"InterVec Ltd is a Limassol-based company active in the energy sector since 2000. This page describes our products and services in solar PV, energy, air, buildings and engineering."},
  inc:{el:"Περιλαμβάνει", en:"Includes"},
@@ -387,7 +387,7 @@ function render(){
   document.getElementById('topic').innerHTML =
     GROUPS.flatMap(g => g.items).map(i => `<option>${esc(i.t[L])}</option>`).join('') + `<option>${T.other[L]}</option>`;
   document.documentElement.lang = L;
-  document.title = L === 'en' ? 'InterVec Ltd — Solar PV, energy, buildings' : 'InterVec Ltd — Φωτοβολταϊκά, ενέργεια, κτίρια';
+  document.title = L === 'en' ? 'InterVec Ltd — Engineering Energy' : 'InterVec Ltd — Ενεργειακή τεχνολογία';
   document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === L));
 }
 document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
