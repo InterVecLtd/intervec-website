@@ -58,6 +58,16 @@ nav a:hover{color:var(--teal)}
 .dir a:hover{color:var(--teal)}
 @media (max-width:1100px){.dir{grid-template-columns:1fr 1fr 1fr}.dir > div:nth-child(4){padding-left:0;border-left:0}}@media (max-width:860px){.dir{grid-template-columns:1fr}.dir > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
 
+.spec{background:var(--ink);color:#dfeaf2;padding:72px 0}
+.spec h2{color:#fff;font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.025em;line-height:1.1}
+.spec-lede{margin-top:12px;max-width:62ch;color:#b6cad8;font-size:1.08rem}
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:36px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12)}
+.spec-card{display:block;padding:26px 24px;background:var(--ink);text-decoration:none;color:#dfeaf2}
+.spec-card strong{display:block;color:#fff;font-size:1.12rem;margin-bottom:8px}
+.spec-card strong::before{content:"";display:block;width:28px;height:3px;background:var(--green);margin-bottom:14px}
+.spec-card span{font-size:.97rem;color:#b6cad8}
+.spec-card:hover{background:#163a55}
+@media (max-width:900px){.spec-grid{grid-template-columns:1fr}}
 /* Groups & entries */
 .group{padding:80px 0 24px}
 .group + .group{border-top:1px solid var(--line)}
@@ -132,6 +142,7 @@ footer a{color:#fff}
     </div>
   </section>
 
+  <section class="spec" id="specialised"></section>
   <div id="groups"></div>
 
   <section class="about" id="about">
@@ -340,13 +351,26 @@ const GROUPS = [
       inc:{el:["Τρισδιάστατη σχεδίαση (CAD)","Πρωτότυπα με τρισδιάστατη εκτύπωση","Εξαρτήματα και καλύμματα κατά παραγγελία"],
            en:["3D design (CAD)","3D-printed prototypes","Custom parts and enclosures"]} },
     { id:"automation",
-      t:{el:"Αυτοματισμοί", en:"Automation"},
-      d:{el:"Αυτοματισμοί για τον έλεγχο και την παρακολούθηση ενεργειακών συστημάτων και εγκαταστάσεων.",
-         en:"Automation for controlling and monitoring energy systems and installations."},
-      inc:{el:["Έλεγχος και προγραμματισμός φορτίων","Απομακρυσμένη παρακολούθηση","Συνεργασία φωτοβολταϊκών, αποθήκευσης και κλιματισμού"],
-           en:["Load control and scheduling","Remote monitoring","Integration of PV, storage and HVAC"]} }
+      t:{el:"Αυτοματισμοί κτιρίων", en:"Building automation"},
+      d:{el:"Συστήματα αυτοματισμού και διαχείρισης κτιρίων (BMS) που συντονίζουν θέρμανση, κλιματισμό, φωτισμό, αερισμό και ενεργειακά συστήματα, ώστε το κτίριο να καταναλώνει μόνο όση ενέργεια χρειάζεται.",
+         en:"Building automation and management systems (BMS) that coordinate heating, cooling, lighting, ventilation and energy systems, so the building uses only the energy it needs."},
+      inc:{el:["Έλεγχος θέρμανσης, κλιματισμού και αερισμού","Έλεγχος φωτισμού και σκίασης","Προγραμματισμός και διαχείριση φορτίων","Αισθητήρες θερμοκρασίας, υγρασίας, παρουσίας και ποιότητας αέρα","Μέτρηση και καταγραφή κατανάλωσης ενέργειας","Απομακρυσμένη παρακολούθηση και έλεγχος","Συνεργασία με φωτοβολταϊκά και αποθήκευση"],
+           en:["Heating, cooling and ventilation control","Lighting and shading control","Load scheduling and management","Temperature, humidity, occupancy and air-quality sensors","Energy metering and logging","Remote monitoring and control","Integration with PV and storage"]} }
    ]}
 ];
+
+const SPEC = {
+ t:{el:"Εξειδικευμένες τεχνολογίες", en:"Specialised technologies"},
+ d:{el:"Πέρα από τα φωτοβολταϊκά, η InterVec εφαρμόζει εξειδικευμένες τεχνολογίες για επιχειρήσεις, βιομηχανίες και κτίρια.",
+    en:"Beyond solar PV, InterVec applies specialised technologies for businesses, industry and buildings."},
+ items:[
+  ["power",{el:"Ποιότητα ισχύος & βελτιστοποίηση τάσης",en:"Power conditioning & voltage optimisation"},{el:"Σταθερή, καθαρή τάση και χαμηλότερη κατανάλωση για εγκαταστάσεις από 70 kVA.",en:"Stable, clean voltage and lower consumption for sites from 70 kVA."}],
+  ["supercapacitors",{el:"Αποθήκευση με υπερπυκνωτές",en:"Supercapacitor storage"},{el:"Απόκριση σε χιλιοστά του δευτερολέπτου για αιχμές, βυθίσεις και βιομηχανικά φορτία.",en:"Millisecond response for peaks, sags and industrial loads."}],
+  ["destratification",{el:"Αποστρωμάτωση αέρα",en:"Air destratification"},{el:"Ομοιόμορφη θερμοκρασία σε χώρους με ψηλή οροφή και μικρότερο φορτίο κλιματισμού.",en:"Even temperature in high-ceiling spaces and lower HVAC load."}],
+  ["automation",{el:"Αυτοματισμοί κτιρίων",en:"Building automation"},{el:"Συντονισμός θέρμανσης, κλιματισμού, φωτισμού και ενέργειας από ένα σύστημα.",en:"Heating, cooling, lighting and energy coordinated by one system."}],
+  ["bioclimatic",{el:"Βιοκλιματικός σχεδιασμός",en:"Bioclimatic design"},{el:"Θερμική άνεση με την ελάχιστη χρήση κλιματιστικών μέσων.",en:"Thermal comfort with minimal use of air conditioning."}],
+  ["daylighting",{el:"Φυσικός φωτισμός",en:"Daylighting"},{el:"Φως ημέρας από την οροφή αντί για τεχνητό φωτισμό.",en:"Daylight from the roof instead of artificial lighting."}]
+ ]};
 
 const T = {
  h1:{el:"Ενεργειακή τεχνολογία", en:"Engineering Energy"},
@@ -382,6 +406,7 @@ function render(){
     `<a href="#contact">${T.navContact[L]}</a>`;
   document.getElementById('dir').innerHTML = GROUPS.map(g =>
     `<div><h2>${esc(g.t[L])}</h2><ul>${g.items.map(i => `<li><a href="#${i.id}">${esc(i.t[L])}</a></li>`).join('')}</ul></div>`).join('');
+  document.getElementById('specialised').innerHTML = `<div class="wrap"><h2>${esc(SPEC.t[L])}</h2><p class="spec-lede">${esc(SPEC.d[L])}</p><div class="spec-grid">${SPEC.items.map(i => `<a class="spec-card" href="#${i[0]}"><strong>${esc(i[1][L])}</strong><span>${esc(i[2][L])}</span></a>`).join('')}</div></div>`;
   document.getElementById('groups').innerHTML = GROUPS.map(g => `
     <section class="group" id="${g.id}"><div class="wrap">
       <h2>${esc(g.t[L])}</h2><p>${esc(g.d[L])}</p>
