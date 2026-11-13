@@ -86,6 +86,12 @@ nav a:hover{color:var(--teal)}
 #lb .lb-close{top:18px;right:18px}
 #lb .lb-prev{left:18px;top:50%;transform:translateY(-50%)}
 #lb .lb-next{right:18px;top:50%;transform:translateY(-50%)}
+.media{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.media figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.media img{display:block;width:100%;height:190px;object-fit:contain;background:#fff}
+.media figcaption{font-size:.86rem;color:var(--ink-soft);padding:8px 12px;border-top:1px solid var(--line)}
+.credit{font-size:.8rem;color:var(--ink-soft);margin-top:8px}
+@media (max-width:600px){.media{grid-template-columns:1fr}}
 /* Groups & entries */
 .group{padding:80px 0 24px}
 .group + .group{border-top:1px solid var(--line)}
@@ -280,7 +286,8 @@ const GROUPS = [
       inc:{el:["Φορτιστές τοίχου για κατοικίες","Φορτιστές για επιχειρήσεις και χώρους στάθμευσης","Φόρτιση με ηλιακή ενέργεια από το φωτοβολταϊκό","Διαχείριση φορτίου ώστε να μην υπερφορτώνεται η παροχή","Μελέτη ηλεκτρολογικής παροχής και εγκατάσταση"],
            en:["Wall chargers for homes","Chargers for businesses and car parks","Solar charging from the PV system","Load management to protect the supply","Electrical supply study and installation"]} },
     { id:"power",
-      t:{el:"Ποιότητα ισχύος & βελτιστοποίηση τάσης", en:"Power conditioning & voltage optimisation"},
+      t:{el:"Ποιότητα ισχύος & βελτιστοποίηση τάσης (powerPerfector®)", en:"Power conditioning & voltage optimisation (powerPerfector®)"},
+      badge:{el:"Εξουσιοδοτημένος αντιπρόσωπος powerPerfector® στην Κύπρο", en:"Authorised powerPerfector® representative in Cyprus"},
       d:{el:"Συστήματα που ρυθμίζουν και σταθεροποιούν την τάση τροφοδοσίας σε επαγγελματικές και βιομηχανικές εγκαταστάσεις, συνήθως από 70 kVA και πάνω. Στόχος είναι η μείωση της κατανάλωσης, η βελτίωση της ποιότητας ισχύος και η προστασία του ηλεκτρικού εξοπλισμού.",
          en:"Systems that regulate and stabilise the supply voltage in commercial and industrial installations, typically from 70 kVA upwards. The aim is lower consumption, better power quality and protection of electrical equipment."},
       inc:{el:["Βελτιστοποίηση τάσης","Διόρθωση βυθίσεων τάσης","Φιλτράρισμα αρμονικών και μεταβατικών","Προστασία από υπέρταση και υπόταση","Μετρήσεις ποιότητας ισχύος πριν και μετά"],
@@ -303,7 +310,12 @@ const GROUPS = [
       en:"Distribution, purification and renewal of air in large indoor spaces."},
    items:[
     { id:"destratification",
-      t:{el:"Αποστρωμάτωση αέρα", en:"Air destratification"},
+      t:{el:"Αποστρωμάτωση αέρα (Airius)", en:"Air destratification (Airius)"},
+      badge:{el:"Αποκλειστικός αντιπρόσωπος Airius στην Κύπρο", en:"Exclusive Airius representative in Cyprus"},
+      media:[{src:"img/partners/airius-fan.jpg",c:{el:"Μονάδα αποστρωμάτωσης Airius",en:"Airius destratification unit"}},
+             {src:"img/partners/airius-hall.jpg",c:{el:"Εγκατάσταση σε αθλητική αίθουσα",en:"Installation in a sports hall"}},
+             {src:"img/partners/airius-before.png",c:{el:"Κατανομή θερμοκρασίας πριν την εγκατάσταση",en:"Temperature distribution before installation"}},
+             {src:"img/partners/airius-after.png",c:{el:"Κατανομή θερμοκρασίας μετά την εγκατάσταση",en:"Temperature distribution after installation"}}],
       d:{el:"Σε χώρους με ψηλή οροφή ο θερμός αέρας συγκεντρώνεται ψηλά. Οι ανεμιστήρες αποστρωμάτωσης ωθούν τον αέρα προς τα κάτω σε στήλη, ώστε η θερμοκρασία να είναι ομοιόμορφη από την οροφή ως το δάπεδο. Λειτουργούν μαζί με κάθε τύπο συστήματος θέρμανσης και κλιματισμού και μειώνουν το φορτίο του.",
          en:"In high-ceiling spaces warm air collects near the roof. Destratification fans push air down in a column so the temperature is even from ceiling to floor. They work alongside any type of heating and cooling system and reduce its load."},
       inc:{el:["Μελέτη τοποθέτησης","Προμήθεια και εγκατάσταση","Χειμερινή και θερινή λειτουργία"],
@@ -450,11 +462,12 @@ function render(){
       <h2>${esc(g.t[L])}</h2><p>${esc(g.d[L])}</p>
       ${g.items.map(i => `
         <article class="entry" id="${i.id}">
-          <div><h3>${esc(i.t[L])}</h3></div>
+          <div><h3>${esc(i.t[L])}</h3>${i.badge ? `<span class="badge">${esc(i.badge[L])}</span>` : ''}</div>
           <div>
             <p class="desc">${esc(i.d[L])}</p>
             <h4>${T.inc[L]}</h4>
             <ul class="inc">${i.inc[L].map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+            ${i.media ? `<div class="media">${i.media.map(m => `<figure><img src="${m.src}" alt="${esc(m.c[L])}" loading="lazy"><figcaption>${esc(m.c[L])}</figcaption></figure>`).join('')}</div><p class="credit">${L==='en'?'Images: Airius, used with permission.':'Εικόνες: Airius, με την άδειά της.'}</p>` : ''}
             ${i.apps ? `<h4>${T[i.appsLabel || 'apps'][L]}</h4><p>${esc(i.apps[L])}</p>` : ''}
           </div>
         </article>`).join('')}
