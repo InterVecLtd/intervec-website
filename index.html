@@ -68,6 +68,24 @@ nav a:hover{color:var(--teal)}
 .spec-card span{font-size:.97rem;color:#b6cad8}
 .spec-card:hover{background:#163a55}
 @media (max-width:900px){.spec-grid{grid-template-columns:1fr}}
+.projects{padding:80px 0;background:var(--sky);border-top:1px solid var(--line)}
+.projects h2{font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.025em;line-height:1.1}
+.proj-lede{margin-top:10px;color:var(--ink-soft);max-width:60ch}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:10px;margin-top:32px}
+.gallery button{border:0;padding:0;cursor:zoom-in;background:#dfe9f0;border-radius:8px;overflow:hidden}
+.gallery button:first-child{grid-column:span 2;grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.gallery button:hover img{transform:scale(1.03)}
+@media (prefers-reduced-motion:reduce){.gallery img{transition:none}}
+@media (max-width:900px){.gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}}
+#lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100vw;height:100vh;margin:0;inset:0}
+#lb[open]{display:flex;align-items:center;justify-content:center}
+#lb::backdrop{background:rgba(8,22,34,.9)}
+#lb img{max-width:92vw;max-height:88vh;display:block;border-radius:6px}
+#lb button{position:fixed;background:rgba(255,255,255,.14);color:#fff;border:0;font-size:2rem;width:52px;height:52px;border-radius:50%;cursor:pointer;line-height:1}
+#lb .lb-close{top:18px;right:18px}
+#lb .lb-prev{left:18px;top:50%;transform:translateY(-50%)}
+#lb .lb-next{right:18px;top:50%;transform:translateY(-50%)}
 /* Groups & entries */
 .group{padding:80px 0 24px}
 .group + .group{border-top:1px solid var(--line)}
@@ -144,6 +162,20 @@ footer a{color:#fff}
 
   <section class="spec" id="specialised"></section>
   <div id="groups"></div>
+
+  <section class="projects" id="projects">
+    <div class="wrap">
+      <h2 data-t="projH"></h2>
+      <p class="proj-lede" data-t="projP"></p>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+  <dialog id="lb" aria-label="Photo">
+    <button type="button" class="lb-close" aria-label="Close">×</button>
+    <button type="button" class="lb-prev" aria-label="Previous">‹</button>
+    <img alt="">
+    <button type="button" class="lb-next" aria-label="Next">›</button>
+  </dialog>
 
   <section class="about" id="about">
     <div class="wrap">
@@ -359,6 +391,8 @@ const GROUPS = [
    ]}
 ];
 
+const PHOTOS = ["img/p08.jpg","img/p11.jpg","img/p12.jpg","img/p05.jpg","img/p20.jpg","img/p21.jpg","img/p03.jpg","img/p18.jpg","img/p10.jpg","img/p22.jpg","img/p13.jpg","img/p19.jpg","img/p04.jpg","img/p09.jpg","img/p14.jpg","img/p17.jpg","img/p16.jpg","img/p15.jpg","img/p23.jpg","img/p06.jpg","img/p01.jpg","img/p07.jpg","img/p02.jpg"];
+
 const SPEC = {
  t:{el:"Εξειδικευμένες τεχνολογίες", en:"Specialised technologies"},
  d:{el:"Πέρα από τα φωτοβολταϊκά, η InterVec εφαρμόζει εξειδικευμένες τεχνολογίες για επιχειρήσεις, βιομηχανίες και κτίρια.",
@@ -380,6 +414,10 @@ const T = {
  apps:{el:"Εφαρμογές", en:"Applications"}, specs:{el:"Τεχνικά χαρακτηριστικά", en:"Technical characteristics"},
  navAbout:{el:"Η εταιρεία", en:"Company"}, navContact:{el:"Επικοινωνία", en:"Contact"},
  aboutH:{el:"Η εταιρεία", en:"The company"},
+ projH:{el:"Έργα", en:"Projects"},
+ projP:{el:"Επιλεγμένες εγκαταστάσεις φωτοβολταϊκών σε κατοικίες, πολυκατοικίες και επαγγελματικά κτίρια στην Κύπρο.", en:"Selected solar PV installations on homes, apartment buildings and commercial premises in Cyprus."},
+ navProj:{el:"Έργα", en:"Projects"},
+ photoAlt:{el:"Εγκατάσταση φωτοβολταϊκού συστήματος από την InterVec", en:"Solar PV installation by InterVec"},
  f1t:{el:"Από το 2000", en:"Since 2000"}, f1p:{el:"Με έδρα τη Λεμεσό και έργα σε Κύπρο, Ελλάδα, Ιταλία, Μάλτα, Αίγυπτο, Ιορδανία και Ηνωμένα Αραβικά Εμιράτα.", en:"Based in Limassol, with projects in Cyprus, Greece, Italy, Malta, Egypt, Jordan and the United Arab Emirates."},
  f2t:{el:"Συνεργασίες", en:"Partnerships"}, f2p:{el:"Συνεργαζόμαστε με κατασκευαστές από το Ηνωμένο Βασίλειο και την Ευρώπη.", en:"We work with manufacturers from the United Kingdom and Europe."},
  f3t:{el:"Ελληνικά & αγγλικά", en:"Greek & English"}, f3p:{el:"Εξυπηρετούμε πελάτες στην Κύπρο και στο εξωτερικό.", en:"We work with clients in Cyprus and abroad."},
@@ -403,7 +441,7 @@ function render(){
   document.querySelectorAll('[data-t]').forEach(n => { const v = T[n.dataset.t]; if (v) n.textContent = v[L]; });
   document.getElementById('nav').innerHTML =
     GROUPS.map(g => `<a href="#${g.id}">${esc(g.t[L])}</a>`).join('') +
-    `<a href="#contact">${T.navContact[L]}</a>`;
+    `<a href="#projects">${T.navProj[L]}</a><a href="#contact">${T.navContact[L]}</a>`;
   document.getElementById('dir').innerHTML = GROUPS.map(g =>
     `<div><h2>${esc(g.t[L])}</h2><ul>${g.items.map(i => `<li><a href="#${i.id}">${esc(i.t[L])}</a></li>`).join('')}</ul></div>`).join('');
   document.getElementById('specialised').innerHTML = `<div class="wrap"><h2>${esc(SPEC.t[L])}</h2><p class="spec-lede">${esc(SPEC.d[L])}</p><div class="spec-grid">${SPEC.items.map(i => `<a class="spec-card" href="#${i[0]}"><strong>${esc(i[1][L])}</strong><span>${esc(i[2][L])}</span></a>`).join('')}</div></div>`;
@@ -421,6 +459,7 @@ function render(){
           </div>
         </article>`).join('')}
     </div></section>`).join('');
+  document.getElementById('gallery').innerHTML = PHOTOS.map((src,i) => `<button type="button" data-i="${i}"><img src="${src}" alt="${esc(T.photoAlt[L])}" loading="lazy" decoding="async"></button>`).join('');
   document.getElementById('topic').innerHTML =
     GROUPS.flatMap(g => g.items).map(i => `<option>${esc(i.t[L])}</option>`).join('') + `<option>${T.other[L]}</option>`;
   document.documentElement.lang = L;
@@ -434,6 +473,17 @@ try { if (localStorage.getItem('iv-lang') === 'en') lang = 'en'; } catch(e){}
 render();
 if (location.hash) { const el = document.querySelector(location.hash.replace(/[^#\w-]/g,'')); if (el) el.scrollIntoView(); }
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+(function(){
+  const lb=document.getElementById('lb'), im=lb.querySelector('img'); let cur=0;
+  const show=i=>{cur=(i+PHOTOS.length)%PHOTOS.length; im.src=PHOTOS[cur]; im.alt=T.photoAlt[lang];};
+  document.getElementById('gallery').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b)return; show(+b.dataset.i); if(lb.showModal) lb.showModal(); else lb.setAttribute('open','');});
+  lb.querySelector('.lb-close').onclick=()=>lb.close();
+  lb.querySelector('.lb-prev').onclick=()=>show(cur-1);
+  lb.querySelector('.lb-next').onclick=()=>show(cur+1);
+  lb.addEventListener('click',e=>{if(e.target===lb) lb.close();});
+  document.addEventListener('keydown',e=>{if(!lb.open)return; if(e.key==='ArrowLeft')show(cur-1); if(e.key==='ArrowRight')show(cur+1);});
+})();
 
 document.getElementById('f').addEventListener('submit', e => {
   e.preventDefault();
