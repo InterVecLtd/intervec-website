@@ -107,6 +107,17 @@ nav a:hover{color:var(--teal)}
 .door:nth-child(2) .door-go{color:var(--green)}
 nav a.active{color:var(--teal);font-weight:700}
 @media (max-width:760px){.doors{grid-template-columns:1fr}}
+.intro-top{display:block}
+.intro.with-hero .intro-top{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+#hero-img{width:100%;height:380px;object-fit:cover;border-radius:16px;box-shadow:0 18px 50px rgba(15,46,69,.18);cursor:zoom-in}
+.door-img{width:calc(100% + 60px);margin:-30px -30px 22px;height:220px;object-fit:cover;border-radius:14px 14px 0 0;display:block}
+.band{margin:4px 0 26px}
+.band img{width:100%;height:340px;object-fit:cover;border-radius:14px;display:block;cursor:zoom-in}
+.pics{display:grid;gap:10px;margin-top:20px}
+.pics.n1{grid-template-columns:1fr}.pics.n2{grid-template-columns:1fr 1fr}.pics.n3{grid-template-columns:1.4fr 1fr 1fr}
+.pics img{width:100%;height:200px;object-fit:cover;border-radius:10px;display:block;cursor:zoom-in}
+.pics.n1 img{height:260px}
+@media (max-width:900px){.intro.with-hero .intro-top{grid-template-columns:1fr;gap:24px}#hero-img{height:240px}.band img{height:220px}.pics.n3{grid-template-columns:1fr 1fr}.pics.n3 img:first-child{grid-column:span 2}.pics img{height:160px}}
 /* Groups & entries */
 .group{padding:80px 0 24px}
 .group + .group{border-top:1px solid var(--line)}
@@ -175,8 +186,8 @@ footer a{color:#fff}
 <main id="top">
   <section class="intro">
     <div class="wrap">
-      <h1 data-t="h1"></h1>
-      <p data-t="intro"></p>
+      <div class="intro-top"><div class="intro-text"><h1 data-t="h1"></h1>
+      <p data-t="intro"></p></div><img id="hero-img" class="zoom" hidden alt=""></div>
       <div class="doors" id="doors"></div>
       <div class="dir" id="dir"></div>
     </div>
@@ -185,13 +196,6 @@ footer a{color:#fff}
   <section class="spec" id="specialised"></section>
   <div id="groups"></div>
 
-  <section class="projects" id="projects">
-    <div class="wrap">
-      <h2 data-t="projH"></h2>
-      <p class="proj-lede" data-t="projP"></p>
-      <div class="gallery" id="gallery"></div>
-    </div>
-  </section>
   <dialog id="lb" aria-label="Photo">
     <button type="button" class="lb-close" aria-label="Close">×</button>
     <button type="button" class="lb-prev" aria-label="Previous">‹</button>
@@ -419,7 +423,14 @@ const GROUPS = [
    ]}
 ];
 
-const PHOTOS = ["img/p08.jpg","img/p11.jpg","img/p12.jpg","img/p05.jpg","img/p20.jpg","img/p21.jpg","img/p03.jpg","img/p18.jpg","img/p10.jpg","img/p22.jpg","img/p13.jpg","img/p19.jpg","img/p04.jpg","img/p09.jpg","img/p14.jpg","img/p17.jpg","img/p16.jpg","img/p15.jpg","img/p23.jpg","img/p06.jpg","img/p01.jpg","img/p07.jpg","img/p02.jpg"];
+const PIC = {
+ home:{res:"p20", biz:"p08"},
+ res:{hero:"p20", bands:{solar:"p22", energy:"p21"},
+      items:{"pv-home":["p05","p14","p13"], "pv-storage":["p18","p19"], "pv-monitoring":["p15","p17"], "pv-grants":["p01"]}},
+ biz:{hero:"p08", bands:{solar:"p07", energy:"p10"},
+      items:{"pv-business":["p03","p04","p09"], "pv-monitoring":["p02"], "pv-storage":["p23"], "storage":["p11","p12"]}}
+};
+const img = id => `img/${id}.jpg`;
 
 const SPEC = {
  t:{el:"Εξειδικευμένες τεχνολογίες", en:"Specialised technologies"},
@@ -479,18 +490,20 @@ function render(){
   document.querySelectorAll('[data-t]').forEach(n => { const v = T[n.dataset.t]; if (v) n.textContent = v[L]; });
   document.getElementById('nav').innerHTML =
     `<a data-page="res" href="${PAGES.res}">${esc(T.aud_res[L])}</a><a data-page="biz" href="${PAGES.biz}">${esc(T.aud_biz[L])}</a>` +
-    `<a href="#projects">${T.navProj[L]}</a><a href="#contact">${T.navContact[L]}</a>`;
+    `<a href="#contact">${T.navContact[L]}</a>`;
   document.getElementById('dir').innerHTML = visGroups().map(g =>
     `<div><h2>${esc(g.t[L])}</h2><ul>${g.items.map(i => `<li><a href="#${i.id}">${esc(i.t[L])}</a></li>`).join('')}</ul></div>`).join('');
   document.getElementById('specialised').innerHTML = `<div class="wrap"><h2>${esc(SPEC.t[L])}</h2><p class="spec-lede">${esc(SPEC.d[L])}</p><div class="spec-grid">${SPEC.items.filter(i => vis(i[1])).map(i => `<a class="spec-card" href="#${i[0]}"><strong>${esc(i[2][L])}</strong><span>${esc(i[3][L])}</span></a>`).join('')}</div></div>`;
   document.getElementById('groups').innerHTML = visGroups().map(g => `
     <section class="group" id="${g.id}"><div class="wrap">
       <h2>${esc(g.t[L])}</h2><p>${esc(g.d[L])}</p>
+      ${PAGE !== 'home' && PIC[aud].bands[g.id] ? `<figure class="band"><img class="zoom" src="${img(PIC[aud].bands[g.id])}" alt="${esc(T.photoAlt[L])}" loading="lazy"></figure>` : ''}
       ${g.items.map(i => `
         <article class="entry" id="${i.id}">
           <div><h3>${esc(i.t[L])}</h3>${i.badge ? `<span class="badge">${esc(i.badge[L])}</span>` : ''}</div>
           <div>
             <p class="desc">${esc(i.d[L])}</p>
+            ${PAGE !== 'home' && PIC[aud].items[i.id] ? `<div class="pics n${PIC[aud].items[i.id].length}">${PIC[aud].items[i.id].map(x => `<img class="zoom" src="${img(x)}" alt="${esc(T.photoAlt[L])}" loading="lazy">`).join('')}</div>` : ''}
             <h4>${T.inc[L]}</h4>
             <ul class="inc">${i.inc[L].map(x => `<li>${esc(x)}</li>`).join('')}</ul>
             ${i.media ? `<div class="media">${i.media.map(m => `<figure><img src="${m.src}" alt="${esc(m.c[L])}" loading="lazy"><figcaption>${esc(m.c[L])}</figcaption></figure>`).join('')}</div><p class="credit">${L==='en'?'Images: Airius, used with permission.':'Εικόνες: Airius, με την άδειά της.'}</p>` : ''}
@@ -498,7 +511,6 @@ function render(){
           </div>
         </article>`).join('')}
     </div></section>`).join('');
-  document.getElementById('gallery').innerHTML = PHOTOS.map((src,i) => `<button type="button" data-i="${i}"><img src="${src}" alt="${esc(T.photoAlt[L])}" loading="lazy" decoding="async"></button>`).join('');
   document.getElementById('topic').innerHTML =
     visGroups().flatMap(g => g.items).map(i => `<option>${esc(i.t[L])}</option>`).join('') + `<option>${T.other[L]}</option>`;
   document.documentElement.lang = L;
@@ -511,9 +523,11 @@ function render(){
   if (home) {
     document.getElementById('doors').innerHTML = ['res','biz'].map(a => {
       const gs = GROUPS.map(g => ({...g, items: g.items.filter(i => i.aud === 'both' || i.aud === a)})).filter(g => g.items.length);
-      return `<a class="door" href="${PAGES[a]}"><strong>${esc(T['aud_'+a][L])}</strong><span class="door-sub">${esc(T['audS_'+a][L])}</span><ul>${gs.flatMap(g => g.items).slice(0,8).map(i => `<li>${esc(i.t[L])}</li>`).join('')}</ul><span class="door-go">${esc(T.doorGo[L])}</span></a>`;
+      return `<a class="door" href="${PAGES[a]}"><img class="door-img" src="${img(PIC.home[a])}" alt="${esc(T.photoAlt[L])}"><strong>${esc(T['aud_'+a][L])}</strong><span class="door-sub">${esc(T['audS_'+a][L])}</span><ul>${gs.flatMap(g => g.items).slice(0,8).map(i => `<li>${esc(i.t[L])}</li>`).join('')}</ul><span class="door-go">${esc(T.doorGo[L])}</span></a>`;
     }).join('');
   } else {
+    const hero = document.getElementById('hero-img'); hero.hidden = false; hero.src = img(PIC[aud].hero); hero.alt = T.photoAlt[L];
+    document.querySelector('.intro').classList.add('with-hero');
     document.querySelector('[data-t="h1"]').textContent = T['aud_'+aud][L];
     document.querySelector('[data-t="intro"]').textContent = T['audI_'+aud][L];
   }
@@ -529,9 +543,9 @@ if (location.hash) { const el = document.querySelector(location.hash.replace(/[^
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 (function(){
-  const lb=document.getElementById('lb'), im=lb.querySelector('img'); let cur=0;
-  const show=i=>{cur=(i+PHOTOS.length)%PHOTOS.length; im.src=PHOTOS[cur]; im.alt=T.photoAlt[lang];};
-  document.getElementById('gallery').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b)return; show(+b.dataset.i); if(lb.showModal) lb.showModal(); else lb.setAttribute('open','');});
+  const lb=document.getElementById('lb'), im=lb.querySelector('img'); let list=[], cur=0;
+  const show=i=>{cur=(i+list.length)%list.length; im.src=list[cur].src; im.alt=list[cur].alt;};
+  document.addEventListener('click',e=>{const t=e.target.closest('img.zoom'); if(!t||lb.contains(t))return; list=[...document.querySelectorAll('img.zoom')].filter(x=>!x.hidden); show(list.indexOf(t)); if(lb.showModal) lb.showModal(); else lb.setAttribute('open','');});
   lb.querySelector('.lb-close').onclick=()=>lb.close();
   lb.querySelector('.lb-prev').onclick=()=>show(cur-1);
   lb.querySelector('.lb-next').onclick=()=>show(cur+1);
