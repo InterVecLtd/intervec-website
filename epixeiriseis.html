@@ -118,6 +118,13 @@ nav a.active{color:var(--teal);font-weight:700}
 .pics img{width:100%;height:200px;object-fit:cover;border-radius:10px;display:block;cursor:zoom-in}
 .pics.n1 img{height:260px}
 @media (max-width:900px){.intro.with-hero .intro-top{grid-template-columns:1fr;gap:24px}#hero-img{height:240px}.band img{height:220px}.pics.n3{grid-template-columns:1fr 1fr}.pics.n3 img:first-child{grid-column:span 2}.pics img{height:160px}}
+.hl{margin:22px 0 6px;padding:22px 24px;border-left:4px solid var(--green);background:#f1f8ec;border-radius:0 12px 12px 0}
+.entry .hl h4{margin:0 0 8px;color:var(--teal);font-size:1.15rem;text-transform:none;letter-spacing:0}
+.hl p{margin:0 0 18px}
+.hl dl{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0}
+.hl dt{font-size:1.6rem;font-weight:700;color:var(--teal);line-height:1.1}
+.hl dd{margin:4px 0 0;font-size:.92rem;color:var(--ink-soft)}
+@media (max-width:700px){.hl dl{grid-template-columns:1fr}}
 /* Groups & entries */
 .group{padding:80px 0 24px}
 .group + .group{border-top:1px solid var(--line)}
@@ -322,6 +329,12 @@ const GROUPS = [
     { id:"power-iq", aud:"biz",
       credit:"powerPerfector",
       t:{el:"Δυναμική βελτιστοποίηση ισχύος (powerPerfector® iQ)", en:"Responsive power optimisation (powerPerfector® iQ)"},
+      hl:{h:{el:"Τι κάνει διαφορετικά το iQ", en:"What the iQ does differently"},
+          p:{el:"Ένας συμβατικός βελτιστοποιητής μειώνει την τάση κατά ένα σταθερό ποσοστό, οπότε η τάση στην εγκατάσταση εξακολουθεί να ανεβοκατεβαίνει μαζί με το δίκτυο. Το iQ μετρά συνεχώς την τάση και την ανεβάζει ή την κατεβάζει μέσα σε κλάσματα του δευτερολέπτου, ώστε η εγκατάσταση να τροφοδοτείται πάντα με την ίδια, σταθερή τάση.",
+             en:"A conventional optimiser lowers the voltage by a fixed percentage, so the voltage at the site still rises and falls with the grid. The iQ measures the voltage continuously and raises or lowers it within fractions of a second, so the site is always supplied at the same, stable voltage."},
+          f:[["±0,5 V","±0.5 V",{el:"σταθερή τάση εξόδου, ό,τι κι αν κάνει το δίκτυο",en:"stable output voltage, whatever the grid does"}],
+             ["0,25 s","0.25 s",{el:"χρόνος απόκρισης σε κάθε μεταβολή",en:"response time to any change"}],
+             ["+/− 11–15%","+/− 11–15%",{el:"ανύψωση ή μείωση της τάσης όταν το δίκτυο αποκλίνει",en:"boost or buck when the grid deviates"}]]},
       d:{el:"Το iQ είναι ηλεκτρονικός έλεγχος που προστίθεται στη μονάδα powerPerfector και ρυθμίζει την τάση συνεχώς, σε πραγματικό χρόνο. Όσο κι αν μεταβάλλεται η τάση του δικτύου, η εγκατάσταση τροφοδοτείται με σταθερή τάση στην τιμή που ορίζεται και με ισορροπημένες τις τρεις φάσεις.",
          en:"The iQ is an electronic control added to the powerPerfector unit that adjusts the voltage continuously, in real time. However much the grid voltage varies, the installation is supplied at a stable set-point voltage with the three phases balanced."},
       inc:{el:["Σταθερή τάση εξόδου, ±0,5 V","Εξισορρόπηση των τριών φάσεων, εντός ±0,5 V","Απόκριση σε 0,25 δευτερόλεπτα","Ρύθμιση τάσης σε βήματα 0,1 V","Ανύψωση ή μείωση τάσης κατά 11–15% όταν το δίκτυο αποκλίνει","Μείωση άεργου ισχύος 25–50%","Βελτίωση συντελεστή ισχύος 8–20%","Μείωση αρμονικής παραμόρφωσης 10–20%","Καταστολή μεταβατικών υπερτάσεων","Απομακρυσμένη παρακολούθηση και έλεγχος μέσω Wi-Fi/LAN"],
@@ -460,7 +473,7 @@ const SPEC = {
     en:"Beyond solar PV, InterVec applies specialised technologies for businesses, industry and buildings."},
  items:[
   ["power","biz",{el:"Ποιότητα ισχύος & βελτιστοποίηση τάσης",en:"Power conditioning & voltage optimisation"},{el:"Σταθερή, καθαρή τάση και χαμηλότερη κατανάλωση για εγκαταστάσεις από 70 kVA.",en:"Stable, clean voltage and lower consumption for sites from 70 kVA."}],
-  ["power-iq","biz",{el:"Δυναμική βελτιστοποίηση ισχύος (iQ)",en:"Responsive power optimisation (iQ)"},{el:"Σταθερή τάση και ισορροπημένες φάσεις σε πραγματικό χρόνο, με απόκριση 0,25 δευτερολέπτων.",en:"Stable voltage and balanced phases in real time, with 0.25-second response."}],
+  ["power-iq","biz",{el:"Δυναμική βελτιστοποίηση ισχύος (iQ)",en:"Responsive power optimisation (iQ)"},{el:"Ανεβάζει ή κατεβάζει την τάση σε 0,25 δευτερόλεπτα και την κρατά σταθερή στα ±0,5 V, ό,τι κι αν κάνει το δίκτυο.",en:"Raises or lowers the voltage in 0.25 seconds and holds it at ±0.5 V, whatever the grid does."}],
   ["supercapacitors","biz",{el:"Αποθήκευση με υπερπυκνωτές",en:"Supercapacitor storage"},{el:"Απόκριση σε χιλιοστά του δευτερολέπτου για αιχμές, βυθίσεις και βιομηχανικά φορτία.",en:"Millisecond response for peaks, sags and industrial loads."}],
   ["destratification","biz",{el:"Αποστρωμάτωση αέρα",en:"Air destratification"},{el:"Ομοιόμορφη θερμοκρασία σε χώρους με ψηλή οροφή και μικρότερο φορτίο κλιματισμού.",en:"Even temperature in high-ceiling spaces and lower HVAC load."}],
   ["automation","both",{el:"Αυτοματισμοί κτιρίων",en:"Building automation"},{el:"Συντονισμός θέρμανσης, κλιματισμού, φωτισμού και ενέργειας από ένα σύστημα.",en:"Heating, cooling, lighting and energy coordinated by one system."}],
@@ -526,6 +539,7 @@ function render(){
           <div><h3>${esc(i.t[L])}</h3>${i.badge ? `<span class="badge">${esc(i.badge[L])}</span>` : ''}</div>
           <div>
             <p class="desc">${esc(i.d[L])}</p>
+            ${i.hl ? `<aside class="hl"><h4>${esc(i.hl.h[L])}</h4><p>${esc(i.hl.p[L])}</p><dl>${i.hl.f.map(f => `<div><dt>${L==='en'?f[1]:f[0]}</dt><dd>${esc(f[2][L])}</dd></div>`).join('')}</dl></aside>` : ''}
             ${PAGE !== 'home' && PIC[aud].items[i.id] ? `<div class="pics n${PIC[aud].items[i.id].length}">${PIC[aud].items[i.id].map(x => `<img class="zoom" src="${img(x)}" alt="${esc(T.photoAlt[L])}" loading="lazy">`).join('')}</div>` : ''}
             <h4>${T.inc[L]}</h4>
             <ul class="inc">${i.inc[L].map(x => `<li>${esc(x)}</li>`).join('')}</ul>
