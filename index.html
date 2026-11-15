@@ -89,7 +89,7 @@ nav a:hover{color:var(--teal)}
 #lb .lb-next{right:18px;top:50%;transform:translateY(-50%)}
 .media{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
 .media figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.media img{display:block;width:100%;height:190px;object-fit:contain;background:#fff}
+.media img{display:block;width:100%;height:220px;object-fit:contain;background:#fff;cursor:zoom-in}
 .media figcaption{font-size:.86rem;color:var(--ink-soft);padding:8px 12px;border-top:1px solid var(--line)}
 .credit{font-size:.8rem;color:var(--ink-soft);margin-top:8px}
 @media (max-width:600px){.media{grid-template-columns:1fr}}
@@ -319,6 +319,23 @@ const GROUPS = [
            en:["Voltage optimisation","Voltage dip correction","Harmonics and transient filtering","Over- and undervoltage protection","Power quality measurements before and after"]},
       apps:{el:"Βιομηχανία, νοσοκομεία και κλινικές, εκπαιδευτήρια, καταστήματα, αποθήκες, επαγγελματικά κτίρια.",
             en:"Manufacturing, healthcare, education, retail, warehousing, commercial buildings."} },
+    { id:"power-iq", aud:"biz",
+      credit:"powerPerfector",
+      t:{el:"Δυναμική βελτιστοποίηση ισχύος (powerPerfector® iQ)", en:"Responsive power optimisation (powerPerfector® iQ)"},
+      d:{el:"Το iQ είναι ηλεκτρονικός έλεγχος που προστίθεται στη μονάδα powerPerfector και ρυθμίζει την τάση συνεχώς, σε πραγματικό χρόνο. Όσο κι αν μεταβάλλεται η τάση του δικτύου, η εγκατάσταση τροφοδοτείται με σταθερή τάση στην τιμή που ορίζεται και με ισορροπημένες τις τρεις φάσεις.",
+         en:"The iQ is an electronic control added to the powerPerfector unit that adjusts the voltage continuously, in real time. However much the grid voltage varies, the installation is supplied at a stable set-point voltage with the three phases balanced."},
+      inc:{el:["Σταθερή τάση εξόδου, ±0,5 V","Εξισορρόπηση των τριών φάσεων, εντός ±0,5 V","Απόκριση σε 0,25 δευτερόλεπτα","Ρύθμιση τάσης σε βήματα 0,1 V","Ανύψωση ή μείωση τάσης κατά 11–15% όταν το δίκτυο αποκλίνει","Μείωση άεργου ισχύος 25–50%","Βελτίωση συντελεστή ισχύος 8–20%","Μείωση αρμονικής παραμόρφωσης 10–20%","Καταστολή μεταβατικών υπερτάσεων","Απομακρυσμένη παρακολούθηση και έλεγχος μέσω Wi-Fi/LAN"],
+           en:["Stable output voltage, ±0.5 V","Three-phase balancing, within ±0.5 V","Response in 0.25 seconds","Voltage control in 0.1 V steps","Voltage boost or buck of 11–15% when the grid deviates","Reactive power reduced by 25–50%","Power factor improved by 8–20%","Harmonic distortion reduced by 10–20%","Transient suppression","Remote monitoring and control over Wi-Fi/LAN"]},
+      media:[{src:"img/partners/iq-stabilisation.jpg",c:{el:"Σταθεροποίηση και εξισορρόπηση: ασταθής τάση δικτύου (πάνω) και σταθερή έξοδος 220 V ±0,3 V με το iQ (κάτω)",en:"Stabilisation and balancing: unstable mains (top) and stable 220 V ±0.3 V output with the iQ (bottom)"}},
+             {src:"img/partners/iq-response.jpg",c:{el:"Ταχύτητα απόκρισης: αλλαγή από 215 V σε 230 V σε 223 χιλιοστά του δευτερολέπτου",en:"Speed of response: 215 V to 230 V in 223 milliseconds"}},
+             {src:"img/partners/iq-reactive.jpg",c:{el:"Μείωση άεργου ισχύος πριν (κόκκινο) και μετά (πράσινο)",en:"Reactive power before (red) and after (green)"}},
+             {src:"img/partners/iq-pf.jpg",c:{el:"Βελτίωση συντελεστή ισχύος από 0,87 σε 0,94",en:"Power factor improved from 0.87 to 0.94"}},
+             {src:"img/partners/iq-harmonics.jpg",c:{el:"Μείωση 3ης αρμονικής ρεύματος κατά 15,3%",en:"3rd harmonic current reduced by 15.3%"}},
+             {src:"img/partners/iq-transients.jpg",c:{el:"Μεταβατικές υπερτάσεις πριν και μετά την εγκατάσταση",en:"Transients before and after installation"}},
+             {src:"img/partners/iq-cabinet.jpg",c:{el:"Η μονάδα ελέγχου iQ",en:"The iQ control unit"}},
+             {src:"img/partners/iq-install.jpg",c:{el:"Εγκατάσταση powerPerfector iQ",en:"powerPerfector iQ installation"}}],
+      apps:{el:"Εγκαταστάσεις με ασταθή τάση ή ανισορροπία φάσεων, εγκαταστάσεις με φωτοβολταϊκά, βιομηχανία, νοσοκομεία, ξενοδοχεία, εμπορικά κτίρια.",
+            en:"Sites with unstable voltage or phase imbalance, sites with solar PV, manufacturing, hospitals, hotels, commercial buildings."} },
     { id:"supercapacitors", aud:"biz",
       t:{el:"Αποθήκευση ενέργειας με υπερπυκνωτές", en:"Supercapacitor energy storage"},
       d:{el:"Οι υπερπυκνωτές αποδίδουν και απορροφούν μεγάλη ισχύ μέσα σε χιλιοστά του δευτερολέπτου. Χρησιμοποιούνται εκεί όπου χρειάζεται άμεση απόκριση και πολύ μεγάλος αριθμός κύκλων, όχι πολλές ώρες αποθήκευσης.",
@@ -443,6 +460,7 @@ const SPEC = {
     en:"Beyond solar PV, InterVec applies specialised technologies for businesses, industry and buildings."},
  items:[
   ["power","biz",{el:"Ποιότητα ισχύος & βελτιστοποίηση τάσης",en:"Power conditioning & voltage optimisation"},{el:"Σταθερή, καθαρή τάση και χαμηλότερη κατανάλωση για εγκαταστάσεις από 70 kVA.",en:"Stable, clean voltage and lower consumption for sites from 70 kVA."}],
+  ["power-iq","biz",{el:"Δυναμική βελτιστοποίηση ισχύος (iQ)",en:"Responsive power optimisation (iQ)"},{el:"Σταθερή τάση και ισορροπημένες φάσεις σε πραγματικό χρόνο, με απόκριση 0,25 δευτερολέπτων.",en:"Stable voltage and balanced phases in real time, with 0.25-second response."}],
   ["supercapacitors","biz",{el:"Αποθήκευση με υπερπυκνωτές",en:"Supercapacitor storage"},{el:"Απόκριση σε χιλιοστά του δευτερολέπτου για αιχμές, βυθίσεις και βιομηχανικά φορτία.",en:"Millisecond response for peaks, sags and industrial loads."}],
   ["destratification","biz",{el:"Αποστρωμάτωση αέρα",en:"Air destratification"},{el:"Ομοιόμορφη θερμοκρασία σε χώρους με ψηλή οροφή και μικρότερο φορτίο κλιματισμού.",en:"Even temperature in high-ceiling spaces and lower HVAC load."}],
   ["automation","both",{el:"Αυτοματισμοί κτιρίων",en:"Building automation"},{el:"Συντονισμός θέρμανσης, κλιματισμού, φωτισμού και ενέργειας από ένα σύστημα.",en:"Heating, cooling, lighting and energy coordinated by one system."}],
@@ -511,7 +529,7 @@ function render(){
             ${PAGE !== 'home' && PIC[aud].items[i.id] ? `<div class="pics n${PIC[aud].items[i.id].length}">${PIC[aud].items[i.id].map(x => `<img class="zoom" src="${img(x)}" alt="${esc(T.photoAlt[L])}" loading="lazy">`).join('')}</div>` : ''}
             <h4>${T.inc[L]}</h4>
             <ul class="inc">${i.inc[L].map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-            ${i.media ? `<div class="media">${i.media.map(m => `<figure><img src="${m.src}" alt="${esc(m.c[L])}" loading="lazy"><figcaption>${esc(m.c[L])}</figcaption></figure>`).join('')}</div><p class="credit">${L==='en'?`Images: ${i.credit||'Airius'}, used with permission.`:`Εικόνες: ${i.credit||'Airius'}, με την άδειά της.`}</p>` : ''}
+            ${i.media ? `<div class="media">${i.media.map(m => `<figure><img class="zoom" src="${m.src}" alt="${esc(m.c[L])}" loading="lazy"><figcaption>${esc(m.c[L])}</figcaption></figure>`).join('')}</div><p class="credit">${L==='en'?`Images: ${i.credit||'Airius'}, used with permission.`:`Εικόνες: ${i.credit||'Airius'}, με την άδειά της.`}</p>` : ''}
             ${i.apps ? `<h4>${T[i.appsLabel || 'apps'][L]}</h4><p>${esc(i.apps[L])}</p>` : ''}
           </div>
         </article>`).join('')}
